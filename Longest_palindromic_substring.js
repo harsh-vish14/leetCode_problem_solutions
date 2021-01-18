@@ -1,27 +1,34 @@
-var longestPalindrome = function (s) {
-       if (s.length == 2 && s[0] != s[1]) {
-        return s[0];
-    } else if (s.length == 1) {
-        return s;
+var longestPalindrome = function (string) {
+    if (string.length == 1) {
+        return string;
+    } else if (string.length == 2 && string[0] == string[1]) {
+        return string;
     }
-    var palindromeString = '';
-    var i = 0;
-    var j = s.length - 1;
-    for (let z = 0; z <= s.length; z++){
-        if (s[i] != s[j]) {
-            i++;
-            j--;
-        } else {
-            palindromeString = s.substring(i, j + 1);
+    var length = string.length;
+    var result = "";
+
+    var centeredPalindrome = function (left, right) {
+        while (left >= 0 && right < length && string[left] === string[right]) {
+            //expand in each direction.
+            left--;
+            right++;
         }
+
+        return string.slice(left + 1, right);
+    };
+
+    for (var i = 0; i < length - 1; i++) {
+        var oddPal = centeredPalindrome(i, i + 1);
+
+        var evenPal = centeredPalindrome(i, i);
+        if (oddPal.length > result.length)
+            result = oddPal;
+        if (evenPal.length > result.length)
+            result = evenPal;
     }
-    if (palindromeString.length < 3 && s.length == 3) {
-        if (s[0] == s[1]) {
-        return s.substring(0, 2);
-    } else if (s[1] == s[2]) {
-            return s.substring(1, 3);
-        }
-    }
-    return palindromeString
+    return result;
 };
-console.log(longestPalindrome('bbab'));
+
+console.log(
+  longestPalindrome("ababd")
+);
