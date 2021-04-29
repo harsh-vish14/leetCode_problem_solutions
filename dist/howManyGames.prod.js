@@ -1,0 +1,1 @@
+"use strict";function howManyGames(r,a,n,e){var o=0;if(e<r)return 0;if(r===e)return 1;for(var t=0;!(e<o+r);)t++,o+=r,r=Math.max(n,r-a);return t}console.log(howManyGames(16,2,1,9981));
